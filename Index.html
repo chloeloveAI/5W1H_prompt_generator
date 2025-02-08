@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <title>5W1H Prompt Generator</title>
+    <style>
+      body {
+        font-family: "Trebuchet MS", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to bottom right, #ffecd2, #fcb69f);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        text-align: center;
+        padding: 1em;
+        background: #ff9f68;
+        color: #fff;
+        font-size: 1.5em;
+        font-weight: bold;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+      main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 2em;
+      }
+      form {
+        background: #fff;
+        padding: 2em;
+        border-radius: 10px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        max-width: 600px;
+        width: 100%;
+        margin-bottom: 2em;
+      }
+      form h2 {
+        text-align: center;
+        margin-bottom: 1em;
+        color: #ff6f61;
+        font-size: 1.4em;
+      }
+      label {
+        display: block;
+        margin-top: 1em;
+        font-weight: bold;
+        color: #333;
+      }
+      input[type="text"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 0.7em;
+        margin-top: 0.5em;
+        border: 2px solid #ff9f68;
+        border-radius: 6px;
+        font-size: 0.95em;
+        transition: border-color 0.3s;
+        background: #fff;
+      }
+      input[type="text"]:focus,
+      textarea:focus,
+      select:focus {
+        border-color: #ff6f61;
+        outline: none;
+      }
+      button {
+        margin-top: 1em;
+        padding: 0.75em 1.5em;
+        background-color: #ff6f61;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #ff3a2f;
+      }
+      .message {
+        margin-top: 1em;
+        font-weight: bold;
+        color: green;
+        text-align: center;
+      }
+      .prompt-container,
+      .ai-story-container,
+      .edited-story-container {
+        margin-top: 1.5em;
+        background: #fff8f0;
+        padding: 1em;
+        border-radius: 6px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        max-width: 600px;
+        width: 100%;
+      }
+      .prompt-container label,
+      .ai-story-container label,
+      .edited-story-container label {
+        color: #ff6f61;
+        font-weight: bold;
+      }
+      .prompt-container textarea,
+      .ai-story-container textarea,
+      .edited-story-container textarea {
+        height: 120px;
+        border: 2px solid #ff9f68;
+        border-radius: 6px;
+        width: 100%;
+        padding: 0.7em;
+        font-size: 0.95em;
+      }
+      .prompt-container button,
+      .ai-story-container button,
+      .edited-story-container button {
+        margin-top: 1em;
+        background-color: #ff9f68;
+      }
+      .prompt-container button:hover,
+      .ai-story-container button:hover,
+      .edited-story-container button:hover {
+        background-color: #ff6f61;
+      }
+      footer {
+        text-align: center;
+        padding: 1em;
+        font-size: 0.9em;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <header>5W1H Prompt Generator & Story Submission</header>
+    <main>
+      <form id="storyForm">
+        <h2>Let’s create a story together!</h2>
+        
+        <!-- USER FULL NAME -->
+        <label for="fullName">Author’s Full Name (You will be credited as the author):</label>
+        <input type="text" id="fullName" name="fullName" placeholder="e.g. Alex Tan" required>
+
+        <!-- SCHOOL LEVEL -->
+        <label for="schoolLevel">What is your education level?</label>
+        <select id="schoolLevel" name="schoolLevel" required>
+          <option value="">Select an option</option>
+          <option value="kindergarten">Kindergarten</option>
+          <option value="primary">Primary School</option>
+          <option value="secondary">Secondary School</option>
+          <option value="university">University</option>
+        </select>
+
+        <!-- AGE GROUP -->
+        <label for="ageGroup">Which age group do you belong to?</label>
+        <select id="ageGroup" name="ageGroup" required>
+          <option value="">Select your age group</option>
+          <option value="3-5">3-5</option>
+          <option value="6-8">6-8</option>
+          <option value="8-10">8-10</option>
+          <option value="10-12">10-12</option>
+          <option value="12-15">12-15</option>
+          <option value="16-18">16-18</option>
+          <option value="adult">Adult</option>
+        </select>
+
+        <!-- WHO -->
+        <label for="who">Who (Main Character):</label>
+        <input type="text" id="who" name="who" placeholder="e.g. A curious student..." required>
+
+        <!-- WHAT -->
+        <label for="what">What (Main Event/Conflict):</label>
+        <input type="text" id="what" name="what" placeholder="e.g. discovers a secret map..." required>
+
+        <!-- WHERE -->
+        <label for="where">Where (Location):</label>
+        <input type="text" id="where" name="where" placeholder="e.g. in the school library..." required>
+
+        <!-- WHEN -->
+        <label for="when">When (Time):</label>
+        <input type="text" id="when" name="when" placeholder="e.g. after class, in the year 2030..." required>
+
+        <!-- WHY -->
+        <label for="why">Why (Reason/Motivation):</label>
+        <input type="text" id="why" name="why" placeholder="e.g. to save a friend, to uncover hidden knowledge..." required>
+
+        <!-- HOW -->
+        <label for="how">How (Resolution/Method):</label>
+        <textarea id="how" name="how" rows="4" placeholder="e.g. by solving puzzles together, by gathering clues..." required></textarea>
+
+        <!-- NO OF WORDS -->
+        <label for="words">Number of words (approx.):</label>
+        <input id="words" name="words" placeholder="e.g. 200-300" required>
+        
+        <button type="button" onclick="handleGenerate()">Generate & Copy Prompt</button>
+        <div class="message" id="message"></div>
+      </form>
+      
+      <!-- PROMPT DISPLAY -->
+      <div class="prompt-container" id="promptContainer" style="display:none;">
+        <label for="aiPrompt">Here is your AI Prompt:</label>
+        <textarea id="aiPrompt" readonly></textarea>
+        <button type="button" onclick="copyPrompt()">Copy Prompt</button>
+        <p style="margin-top:1em;font-style:italic;">
+          Please paste this prompt into ChatGPT/Murrow AI, then copy the generated story and return here.
+        </p>
+      </div>
+
+      <!-- PASTE AI STORY HERE -->
+      <div class="ai-story-container" id="aiStoryContainer" style="display:none;">
+        <label for="aiStory">Paste the AI-generated story here:</label>
+        <textarea id="aiStory"></textarea>
+        <button type="button" onclick="submitAIStory()">Submit AI-Generated Story</button>
+        <div class="message" id="aiStoryMessage"></div>
+      </div>
+
+      <!-- EDITED STORY -->
+      <div class="edited-story-container" id="editedStoryContainer" style="display:none;">
+        <label for="editedStory">If you edited the story, paste the edited version here:</label>
+        <textarea id="editedStory"></textarea>
+        <button type="button" onclick="submitEditedStory()">Submit Edited Story</button>
+        <div class="message" id="editedStoryMessage"></div>
+      </div>
+    </main>
+    <footer>&copy; 2024 Your School. Happy Storytelling!</footer>
+
+    <script>
+      let currentStoryData = {}; // To store initial user data and prompt
+
+      function handleGenerate() {
+        const nameVal      = document.getElementById('fullName').value.trim();
+        const schoolLevel  = document.getElementById('schoolLevel').value.trim();
+        const ageGroup     = document.getElementById('ageGroup').value.trim();
+        const whoVal       = document.getElementById('who').value.trim();
+        const whatVal      = document.getElementById('what').value.trim();
+        const whereVal     = document.getElementById('where').value.trim();
+        const whenVal      = document.getElementById('when').value.trim();
+        const whyVal       = document.getElementById('why').value.trim();
+        const howVal       = document.getElementById('how').value.trim();
+        const wordsVal     = document.getElementById('words').value.trim();
+        
+        if (!nameVal || !schoolLevel || !ageGroup || !whoVal || !whatVal || !whereVal || !whenVal || !whyVal || !howVal || !wordsVal) {
+          alert('Please fill out all fields.');
+          return;
+        }
+
+        let levelDescription;
+        switch (schoolLevel) {
+          case 'kindergarten':
+            levelDescription = 'a kindergarten-level student';
+            break;
+          case 'primary':
+            levelDescription = 'a primary school student';
+            break;
+          case 'secondary':
+            levelDescription = 'a secondary school student';
+            break;
+          case 'university':
+            levelDescription = 'a university-level student';
+            break;
+        }
+
+        const promptText = 
+`Hello Murrow AI, ${nameVal} is the author of this upcoming story.
+
+This author is ${levelDescription}, and their age group is ${ageGroup}. You are a journalistic story development and writing tutor for students who are not native English speakers. Your task is to assist ${nameVal} in developing story ideas, drafting questions, writing, editing articles, and guiding them through the publishing process.
+
+Maintain a supportive, educational, and encouraging tone throughout. Avoid discussing inappropriate, illegal, or salacious topics, and instead, refer the author to appropriate resources for sensitive issues. Always prioritize ethical considerations, and encourage critical thinking and independent research.
+
+${nameVal} would like to write a story that draws from various genres. Please craft a compelling narrative using the following details:
+
+WHO: ${whoVal}
+WHAT: ${whatVal}
+WHERE: ${whereVal}
+WHEN: ${whenVal}
+WHY: ${whyVal}
+HOW: ${howVal}
+
+Please limit the story to around ${wordsVal} words, ensuring that the vocabulary and style are appropriate and accessible for ${levelDescription} in the ${ageGroup} age range who is developing their English language skills.`;
+
+        currentStoryData = {
+          name: nameVal,
+          schoolLevel: schoolLevel,
+          ageGroup: ageGroup,
+          who: whoVal,
+          what: whatVal,
+          where: whereVal,
+          when: whenVal,
+          why: whyVal,
+          how: howVal,
+          words: wordsVal,
+          prompt: promptText
+        };
+
+        // Display the generated prompt
+        document.getElementById('aiPrompt').value = promptText;
+        document.getElementById('promptContainer').style.display = 'block';
+
+        // Show AI story submission container after prompt is copied
+        document.getElementById('aiStoryContainer').style.display = 'block';
+      }
+
+      function copyPrompt() {
+        const aiPrompt = document.getElementById('aiPrompt');
+        aiPrompt.select();
+        aiPrompt.setSelectionRange(0, 99999); // For mobile
+        document.execCommand('copy');
+        alert('Prompt copied to clipboard!');
+      }
+
+      function submitAIStory() {
+        const aiStory = document.getElementById('aiStory').value.trim();
+        if (!aiStory) {
+          alert('Please paste the AI-generated story first.');
+          return;
+        }
+
+        // Save the AI story to the sheet
+        const data = { ...currentStoryData, aiStory: aiStory };
+
+        google.script.run
+          .withSuccessHandler(function(response) {
+            document.getElementById('aiStoryMessage').innerText = response;
+            // Show the edited story container once AI story is saved
+            document.getElementById('editedStoryContainer').style.display = 'block';
+          })
+          .withFailureHandler(function(err) {
+            document.getElementById('aiStoryMessage').innerText = 'Failed to save AI story. See console for details.';
+            console.error('Error saving AI story:', err);
+          })
+          .saveAIStory(data);
+      }
+
+      function submitEditedStory() {
+        const editedStory = document.getElementById('editedStory').value.trim();
+        if (!editedStory) {
+          alert('Please paste or write the edited story.');
+          return;
+        }
+
+        const data = { ...currentStoryData, editedStory: editedStory };
+
+        google.script.run
+          .withSuccessHandler(function(response) {
+            document.getElementById('editedStoryMessage').innerText = response;
+          })
+          .withFailureHandler(function(err) {
+            document.getElementById('editedStoryMessage').innerText = 'Failed to save edited story. See console for details.';
+            console.error('Error saving edited story:', err);
+          })
+          .saveEditedStory(data);
+      }
+    </script>
+  </body>
+</html>
